@@ -15,10 +15,10 @@ app.get('/', (req, res) => {
 });
 
 // Member Routes සම්බන්ධ කරන තැන (පසුව එකතු කරමු)
-// app.use('/api/jobs', require('./routes/jobRoutes'));
-// app.use('/api/applications', require('./routes/applicationRoutes'));
-// app.use('/api/companies', require('./routes/companyRoutes'));
-// app.use('/api/reviews', require('./routes/reviewRoutes'));
+app.use('/api/jobs', require('./routes/jobRoutes'));
+app.use('/api/applications', require('./routes/applicationRoutes'));
+app.use('/api/companies', require('./routes/companyRoutes'));
+app.use('/api/reviews', require('./routes/reviewRoutes'));
 
 // Connect Database & Start Server
 connectDB();
