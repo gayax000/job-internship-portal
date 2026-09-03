@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api';
 import JobModal from './JobModal';
 
 export default function JobsPage() {
@@ -10,7 +11,7 @@ export default function JobsPage() {
 
   const fetchJobs = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/jobs');
+      const res = await axios.get(`${API_BASE_URL}/api/jobs`);
       setJobs(res.data);
     } catch (err) { console.error(err); }
   };
@@ -20,9 +21,9 @@ export default function JobsPage() {
   const handleSave = async (formData) => {
     try {
       if (editingJob) {
-        await axios.put(`http://localhost:5000/api/jobs/${editingJob._id}`, formData);
+        await axios.put(`${API_BASE_URL}/api/jobs/${editingJob._id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/jobs', formData);
+        await axios.post(`${API_BASE_URL}/api/jobs`, formData);
       }
       setIsModalOpen(false);
       setEditingJob(null);
@@ -33,7 +34,7 @@ export default function JobsPage() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this job listing?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/jobs/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/jobs/${id}`);
         fetchJobs();
       } catch (err) { console.error(err); }
     }

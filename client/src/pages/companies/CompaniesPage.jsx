@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api';
 import CompanyModal from './CompanyModal';
 
 export default function CompaniesPage() {
@@ -11,7 +12,7 @@ export default function CompaniesPage() {
 
   const fetchCompanies = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/companies');
+      const res = await axios.get(`${API_BASE_URL}/api/companies`);
       setCompanies(res.data);
     } catch (err) {
       console.error('Error fetching companies:', err);
@@ -25,9 +26,9 @@ export default function CompaniesPage() {
   const handleSave = async (formData) => {
     try {
       if (editingCompany) {
-        await axios.put(`http://localhost:5000/api/companies/${editingCompany._id}`, formData);
+        await axios.put(`${API_BASE_URL}/api/companies/${editingCompany._id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/companies', formData);
+        await axios.post(`${API_BASE_URL}/api/companies`, formData);
       }
       setIsModalOpen(false);
       setEditingCompany(null);
@@ -40,7 +41,7 @@ export default function CompaniesPage() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this company profile?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/companies/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/companies/${id}`);
         fetchCompanies();
       } catch (err) {
         console.error(err);

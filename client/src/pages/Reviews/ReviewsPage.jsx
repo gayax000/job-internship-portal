@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../../api';
 import ReviewModal from './ReviewModal';
 
 export default function ReviewsPage() {
@@ -10,7 +11,7 @@ export default function ReviewsPage() {
 
   const fetchReviews = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/reviews');
+      const res = await axios.get(`${API_BASE_URL}/api/reviews`);
       setReviews(res.data);
     } catch (err) {
       console.error('Error fetching reviews:', err);
@@ -24,9 +25,9 @@ export default function ReviewsPage() {
   const handleSave = async (formData) => {
     try {
       if (editingReview) {
-        await axios.put(`http://localhost:5000/api/reviews/${editingReview._id}`, formData);
+        await axios.put(`${API_BASE_URL}/api/reviews/${editingReview._id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/reviews', formData);
+        await axios.post(`${API_BASE_URL}/api/reviews`, formData);
       }
       setIsModalOpen(false);
       setEditingReview(null);
@@ -39,7 +40,7 @@ export default function ReviewsPage() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this review?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/reviews/${id}`);
+        await axios.delete(`${API_BASE_URL}/api/reviews/${id}`);
         fetchReviews();
       } catch (err) {
         console.error(err);
