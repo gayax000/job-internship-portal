@@ -3,20 +3,18 @@ import React from 'react';
 export default function Footer() {
   return (
     <footer style={{
-      background: '#0f172a',
-      color: '#94a3b8',
-      textAlign: 'center',
+      background: '#ffffff',
+      borderTop: '1px solid #e2e8f0',
       padding: '24px 20px',
-      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-      fontSize: '13px'
+      textAlign: 'center',
+      fontSize: '13px',
+      color: '#64748b'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <p style={{ fontWeight: 600, color: '#f8fafc', marginBottom: '4px' }}>
-          CareerPulse • University Mini Hackathon Project
+      <div style={{ maxWidth: '1140px', margin: '0 auto' }}>
+        <p style={{ fontWeight: 600, color: '#0f172a', marginBottom: '2px' }}>
+          CareerPulse • University Mini Hackathon 2026
         </p>
-        <p style={{ color: '#64748b' }}>
-          Built with MongoDB, Express.js, React & Node.js (MERN Stack)
-        </p>
+        <p>Built with MongoDB, Express.js, React & Node.js (MERN Stack)</p>
       </div>
     </footer>
   );

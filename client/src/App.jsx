@@ -13,7 +13,7 @@ export default function App() {
     <Router>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar />
-        <div style={{ flex: 1 }}>
+        <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/jobs" element={<JobsPage />} />
@@ -21,7 +21,7 @@ export default function App() {
             <Route path="/companies" element={<CompaniesPage />} />
             <Route path="/reviews" element={<ReviewsPage />} />
           </Routes>
-        </div>
+        </main>
         <Footer />
       </div>
     </Router>

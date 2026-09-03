@@ -9,18 +9,13 @@ export default function Home() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const [jobsRes, appsRes, compsRes, revsRes] = await Promise.all([
+        const [j, a, c, r] = await Promise.all([
           axios.get(`${API_BASE_URL}/api/jobs`).catch(() => ({ data: [] })),
           axios.get(`${API_BASE_URL}/api/applications`).catch(() => ({ data: [] })),
           axios.get(`${API_BASE_URL}/api/companies`).catch(() => ({ data: [] })),
           axios.get(`${API_BASE_URL}/api/reviews`).catch(() => ({ data: [] }))
         ]);
-        setStats({
-          jobs: jobsRes.data.length,
-          applications: appsRes.data.length,
-          companies: compsRes.data.length,
-          reviews: revsRes.data.length
-        });
+        setStats({ jobs: j.data.length, applications: a.data.length, companies: c.data.length, reviews: r.data.length });
       } catch (err) { console.error(err); }
     };
     fetchCounts();
@@ -28,123 +23,151 @@ export default function Home() {
 
   return (
     <div className="container">
-      {/* 🚀 Hero Section with Background Image & Live Stats */}
-      <div className="hero-wrapper">
-        <div className="pulse-badge">
-          <span className="pulse-dot"></span>
-          <span>⚡ 2026 Campus Career & Internship Network</span>
+      {/* Hero Header */}
+      <div style={{ textAlign: 'center', maxWidth: '720px', margin: '20px auto 48px' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          background: '#eff6ff',
+          color: '#2563eb',
+          fontSize: '13px',
+          fontWeight: 600,
+          padding: '4px 12px',
+          borderRadius: '20px',
+          marginBottom: '16px',
+          border: '1px solid #dbeafe'
+        }}>
+          🎓 University Mini Hackathon 2026
         </div>
 
-        <h1 style={{ fontSize: '42px', color: 'white', fontWeight: 800, lineHeight: '1.2' }}>
-          Discover Opportunities. Build Your Career with <span style={{ background: 'linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>CareerPulse</span>
+        <h1 style={{ fontSize: '38px', lineHeight: '1.25', marginBottom: '16px', color: '#0f172a' }}>
+          Smart Campus Career & Internship Management Portal
         </h1>
-        
-        <p style={{ color: '#cbd5e1', fontSize: '17px', maxWidth: '680px', margin: '16px auto 32px', lineHeight: '1.6' }}>
-          The university's premier hub connecting students with verified internships, tracking candidate job applications in real-time, and sharing authentic interview insights.
+
+        <p style={{ fontSize: '16px', color: '#64748b', lineHeight: '1.6', marginBottom: '28px' }}>
+          A unified MERN stack application connecting undergraduates with top hiring employers, real-time application tracking, and authentic interview reviews.
         </p>
 
-        {/* Quick Action Buttons */}
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '35px' }}>
-          <Link to="/jobs" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '15px', textDecoration: 'none' }}>
-            🔍 Browse Active Jobs
+        <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/jobs" className="btn btn-primary" style={{ padding: '10px 22px' }}>
+            Explore Jobs & Internships →
           </Link>
-          <Link to="/applications" className="btn btn-secondary" style={{ padding: '12px 24px', fontSize: '15px', textDecoration: 'none', background: 'rgba(255,255,255,0.15)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>
-            📝 Submit Application
+          <Link to="/applications" className="btn btn-secondary" style={{ padding: '10px 22px' }}>
+            Track Applications
           </Link>
-        </div>
-
-        {/* Live Counters */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
-          gap: '16px',
-          maxWidth: '720px',
-          margin: '0 auto',
-          background: 'rgba(15, 23, 42, 0.65)',
-          backdropFilter: 'blur(12px)',
-          padding: '18px 24px',
-          borderRadius: '16px',
-          border: '1px solid rgba(255, 255, 255, 0.15)'
-        }}>
-          <div><h2 style={{ color: '#60a5fa', margin: 0, fontSize: '28px' }}>{stats.jobs}</h2><p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>Active Vacancies</p></div>
-          <div><h2 style={{ color: '#34d399', margin: 0, fontSize: '28px' }}>{stats.applications}</h2><p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>Applications</p></div>
-          <div><h2 style={{ color: '#fbbf24', margin: 0, fontSize: '28px' }}>{stats.companies}</h2><p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>Top Employers</p></div>
-          <div><h2 style={{ color: '#f472b6', margin: 0, fontSize: '28px' }}>{stats.reviews}</h2><p style={{ fontSize: '13px', color: '#94a3b8', margin: 0 }}>Verified Reviews</p></div>
         </div>
       </div>
 
-      {/* 🧭 Platform Features / Modules */}
-      <h2 style={{ marginTop: '55px', fontSize: '26px' }}>Explore Full-Stack Modules</h2>
-      <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '24px' }}>Developed independently with dedicated CRUD operations and validation rules:</p>
-
-      <div className="card-grid">
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '32px' }}>💼</span>
-            <span style={{ fontSize: '11px', background: '#eff6ff', color: '#2563eb', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>MEMBER 1</span>
+      {/* Metrics Row */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '16px',
+        marginBottom: '48px'
+      }}>
+        {[
+          { label: 'Active Opportunities', value: stats.jobs, color: '#2563eb', icon: '💼' },
+          { label: 'Candidate Submissions', value: stats.applications, color: '#059669', icon: '📑' },
+          { label: 'Partner Companies', value: stats.companies, color: '#d97706', icon: '🏢' },
+          { label: 'Verified Reviews', value: stats.reviews, color: '#db2777', icon: '⭐' }
+        ].map(item => (
+          <div key={item.label} style={{
+            background: '#ffffff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '12px',
+            padding: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '16px'
+          }}>
+            <div style={{ fontSize: '24px', background: '#f8fafc', width: '48px', height: '48px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #f1f5f9' }}>
+              {item.icon}
+            </div>
+            <div>
+              <div style={{ fontSize: '22px', fontWeight: '800', color: item.color }}>{item.value}</div>
+              <div style={{ fontSize: '13px', color: '#64748b', fontWeight: '500' }}>{item.label}</div>
+            </div>
           </div>
-          <h3 style={{ marginTop: '12px' }}>Jobs & Internships</h3>
-          <p style={{ color: '#64748b', fontSize: '14px', margin: '8px 0 20px' }}>Explore job openings with salary ranges, work locations, and direct application links.</p>
-          <Link to="/jobs" className="btn btn-primary" style={{ textDecoration: 'none', width: '100%' }}>View Job Board →</Link>
-        </div>
-
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '32px' }}>📑</span>
-            <span style={{ fontSize: '11px', background: '#ecfdf5', color: '#059669', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>MEMBER 2</span>
-          </div>
-          <h3 style={{ marginTop: '12px' }}>Applicant Tracking</h3>
-          <p style={{ color: '#64748b', fontSize: '14px', margin: '8px 0 20px' }}>Track candidate submissions with live status updates (Under Review, Interview, Accepted).</p>
-          <Link to="/applications" className="btn btn-primary" style={{ textDecoration: 'none', width: '100%' }}>Manage Applications →</Link>
-        </div>
-
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '32px' }}>🏢</span>
-            <span style={{ fontSize: '11px', background: '#fef3c7', color: '#d97706', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>MEMBER 3</span>
-          </div>
-          <h3 style={{ marginTop: '12px' }}>Company Directory</h3>
-          <p style={{ color: '#64748b', fontSize: '14px', margin: '8px 0 20px' }}>Discover registered industry partners across Technology, Finance, Healthcare, and E-commerce.</p>
-          <Link to="/companies" className="btn btn-primary" style={{ textDecoration: 'none', width: '100%' }}>Explore Companies →</Link>
-        </div>
-
-        <div className="card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '32px' }}>⭐</span>
-            <span style={{ fontSize: '11px', background: '#fdf2f8', color: '#db2777', padding: '3px 8px', borderRadius: '6px', fontWeight: 700 }}>MEMBER 4</span>
-          </div>
-          <h3 style={{ marginTop: '12px' }}>Reviews & Ratings</h3>
-          <p style={{ color: '#64748b', fontSize: '14px', margin: '8px 0 20px' }}>Verified employee ratings, workplace culture feedback, and technical interview tips.</p>
-          <Link to="/reviews" className="btn btn-primary" style={{ textDecoration: 'none', width: '100%' }}>Read Reviews →</Link>
-        </div>
+        ))}
       </div>
 
-      {/* 🛠️ How It Works Interactive Section */}
-      <h2 style={{ marginTop: '60px', fontSize: '26px' }}>How CareerPulse Works</h2>
-      <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '24px' }}>A streamlined 3-step lifecycle for university talent and recruiters:</p>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-        <div className="step-card">
-          <div className="step-number">1</div>
-          <div>
-            <h4 style={{ fontSize: '16px', marginBottom: '4px' }}>Discover & Filter Roles</h4>
-            <p style={{ color: '#64748b', fontSize: '13px' }}>Filter hundreds of curated developer and intern positions matching your tech stack and salary preferences.</p>
-          </div>
+      {/* 4 CRUD Modules Grid */}
+      <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '40px' }}>
+        <div style={{ marginBottom: '24px' }}>
+          <h2>Core Project Modules</h2>
+          <p style={{ color: '#64748b', fontSize: '14px', marginTop: '4px' }}>
+            Four independent full-stack CRUD features engineered with validation and persistent database storage:
+          </p>
         </div>
 
-        <div className="step-card">
-          <div className="step-number">2</div>
-          <div>
-            <h4 style={{ fontSize: '16px', marginBottom: '4px' }}>Submit & Track Online</h4>
-            <p style={{ color: '#64748b', fontSize: '13px' }}>Attach your portfolio, GitHub, and experience. Watch your status transition seamlessly from review to interview.</p>
+        <div className="card-grid">
+          {/* Module 1 */}
+          <div className="card">
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '22px' }}>💼</span>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#2563eb', background: '#eff6ff', padding: '3px 8px', borderRadius: '6px' }}>MEMBER 1</span>
+              </div>
+              <h3>Jobs & Internships</h3>
+              <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', lineHeight: '1.5' }}>
+                Browse curated tech vacancies, salary stipends, job types, and search by keywords.
+              </p>
+            </div>
+            <Link to="/jobs" className="btn btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+              Manage Jobs →
+            </Link>
           </div>
-        </div>
 
-        <div className="step-card">
-          <div className="step-number">3</div>
-          <div>
-            <h4 style={{ fontSize: '16px', marginBottom: '4px' }}>Share Authentic Insights</h4>
-            <p style={{ color: '#64748b', fontSize: '13px' }}>Give back to junior students by rating company interview processes and sharing preparation tips.</p>
+          {/* Module 2 */}
+          <div className="card">
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '22px' }}>📑</span>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#059669', background: '#ecfdf5', padding: '3px 8px', borderRadius: '6px' }}>MEMBER 2</span>
+              </div>
+              <h3>Application Tracker</h3>
+              <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', lineHeight: '1.5' }}>
+                Submit candidate resumes and monitor status transitions with instant status filters.
+              </p>
+            </div>
+            <Link to="/applications" className="btn btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+              View Applications →
+            </Link>
+          </div>
+
+          {/* Module 3 */}
+          <div className="card">
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '22px' }}>🏢</span>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#d97706', background: '#fef3c7', padding: '3px 8px', borderRadius: '6px' }}>MEMBER 3</span>
+              </div>
+              <h3>Company Directory</h3>
+              <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', lineHeight: '1.5' }}>
+                Directory of industry partners filtered by sector, employee headcount, and official websites.
+              </p>
+            </div>
+            <Link to="/companies" className="btn btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+              Explore Companies →
+            </Link>
+          </div>
+
+          {/* Module 4 */}
+          <div className="card">
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                <span style={{ fontSize: '22px' }}>⭐</span>
+                <span style={{ fontSize: '11px', fontWeight: '700', color: '#db2777', background: '#fdf2f8', padding: '3px 8px', borderRadius: '6px' }}>MEMBER 4</span>
+              </div>
+              <h3>Reviews & Insights</h3>
+              <p style={{ color: '#64748b', fontSize: '14px', marginTop: '8px', lineHeight: '1.5' }}>
+                Read authentic workplace culture feedback, star scores, and technical interview advice.
+              </p>
+            </div>
+            <Link to="/reviews" className="btn btn-secondary" style={{ marginTop: '20px', width: '100%' }}>
+              Read Reviews →
+            </Link>
           </div>
         </div>
       </div>
