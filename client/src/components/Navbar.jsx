@@ -3,23 +3,57 @@ import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const location = useLocation();
-
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav style={{ background: '#1e293b', padding: '14px 20px', color: 'white' }}>
+    <header style={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      background: 'rgba(15, 23, 42, 0.95)',
+      backdropFilter: 'blur(10px)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+      padding: '14px 20px'
+    }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap' }}>
-        <Link to="/" style={{ color: 'white', textDecoration: 'none', fontSize: '20px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          🚀 CareerPulse
+        <Link to="/" style={{ color: 'white', textDecoration: 'none', fontSize: '20px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{
+            background: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)',
+            padding: '6px 10px',
+            borderRadius: '8px',
+            fontSize: '16px'
+          }}>🚀</span>
+          <span>Career<span style={{ color: '#60a5fa' }}>Pulse</span></span>
         </Link>
-        <div style={{ display: 'flex', gap: '15px', marginTop: '5px' }}>
-          <Link to="/" style={{ color: isActive('/') ? '#38bdf8' : '#cbd5e1', textDecoration: 'none', fontWeight: 500 }}>Home</Link>
-          <Link to="/jobs" style={{ color: isActive('/jobs') ? '#38bdf8' : '#cbd5e1', textDecoration: 'none', fontWeight: 500 }}>💼 Jobs</Link>
-          <Link to="/applications" style={{ color: isActive('/applications') ? '#38bdf8' : '#cbd5e1', textDecoration: 'none', fontWeight: 500 }}>📑 Applications</Link>
-          <Link to="/companies" style={{ color: isActive('/companies') ? '#38bdf8' : '#cbd5e1', textDecoration: 'none', fontWeight: 500 }}>🏢 Companies</Link>
-          <Link to="/reviews" style={{ color: isActive('/reviews') ? '#38bdf8' : '#cbd5e1', textDecoration: 'none', fontWeight: 500 }}>⭐ Reviews</Link>
-        </div>
+
+        <nav style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+          {[
+            { path: '/', label: 'Home' },
+            { path: '/jobs', label: '💼 Jobs' },
+            { path: '/applications', label: '📑 Applications' },
+            { path: '/companies', label: '🏢 Companies' },
+            { path: '/reviews', label: '⭐ Reviews' }
+          ].map(tab => (
+            <Link
+              key={tab.path}
+              to={tab.path}
+              style={{
+                color: isActive(tab.path) ? '#ffffff' : '#94a3b8',
+                background: isActive(tab.path) ? 'rgba(59, 130, 246, 0.2)' : 'transparent',
+                border: isActive(tab.path) ? '1px solid rgba(96, 165, 250, 0.3)' : '1px solid transparent',
+                textDecoration: 'none',
+                fontWeight: 600,
+                fontSize: '13px',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              {tab.label}
+            </Link>
+          ))}
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
